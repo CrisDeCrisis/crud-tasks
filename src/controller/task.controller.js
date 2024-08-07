@@ -1,8 +1,8 @@
 import { connectDB } from "../dataBase/dataBase.js";
 
-const ctrl = {};
+const tasksCtrl = {};
 
-ctrl.createTask = async (req, res) => {
+tasksCtrl.createTask = async (req, res) => {
     const { title, description } = req.body;
 
     if (!title || !description) {
@@ -14,7 +14,7 @@ ctrl.createTask = async (req, res) => {
     }
 };
 
-ctrl.getTasks = async (req, res) => {
+tasksCtrl.getTasks = async (req, res) => {
     const conection = await connectDB();
     const [results] = await conection.query('SELECT * FROM tasks');
 
@@ -25,7 +25,7 @@ ctrl.getTasks = async (req, res) => {
     }
 };
 
-ctrl.getTaskById = async (req, res) => {
+tasksCtrl.getTaskById = async (req, res) => {
     const { id } = req.params;
     const conection = await connectDB();
     const [results] = await conection.query('SELECT * FROM tasks WHERE id = ?', [id]);
@@ -37,4 +37,4 @@ ctrl.getTaskById = async (req, res) => {
     }
 };
 
-export default ctrl;
+export default tasksCtrl;

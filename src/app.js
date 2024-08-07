@@ -9,7 +9,8 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(morgan('dev'));
 app.use(cors());
-app.use(router, "/");
+
+app.use("/api", router);
 
 app.listen(PORT, () => {
     console.log(`El servidor esta corriendo en el puerto ${PORT}`);
