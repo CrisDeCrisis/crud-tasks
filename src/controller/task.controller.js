@@ -7,22 +7,17 @@ ctrl.createTask = async (req, res) => {
 
     if (!title || !description) {
         return res.status(400).json({ message: 'Los campos no deben estar vacios' });
-    } else {
-        const conection = await connectDB();
-        await conection.query('INSERT INTO tasks (title, description) VALUES (?, ?)', [title, description]);
-        return res.status(201).json({ message: 'Tarea creada correctamente' });
     }
+
+    const conection = await connectDB();
+    await conection.query('INSERT INTO tasks (title, description) VALUES (?, ?)', [title, description]);
+    return res.status(201).json({ message: 'Tarea creada correctamente' });
 };
 
 ctrl.getTasks = async (req, res) => {
     const conection = await connectDB();
     const [results] = await conection.query('SELECT * FROM tasks');
-
-    if (!conection) {
-        return res.status(500).json({ message: 'No se pudo conectar a la base de datos' });
-    } else {
-        return res.status(200).json(results);
-    }
+    res.status(200).json(results);
 };
 
 ctrl.getTaskById = async (req, res) => {
@@ -34,6 +29,32 @@ ctrl.getTaskById = async (req, res) => {
         return res.status(404).json({ message: 'Tarea no encontrada' });
     } else {
         return res.status(200).json(results[0]);
+    }
+};
+
+ctrl.updateTaskById = async (req, res) => {
+    const { id } = req.params;
+    const conection = await connectDB();
+    const [results] = await conection.query('SELECT * FROM tasks WHERE id = ?', [id]);
+
+    if (id != results[0].id) {
+        return res.status(404).json({ message: 'Tarea no encontrada' });
+    } else {
+        const { title, description } = req.body;
+        await conection.query('UPDATE tasks SET title = ?, description = ? WHERE id = ?', [title, description, id]);
+        return res.status(200).json({ message: 'Tarea actualizada correctamente' });
+    };
+};
+
+ctrl.deleteTaskById = async (req, res) => {
+    const { id } = req.params;
+    const conection = connectDB();
+    const [results] = await conection.query('DELETE FROM tasks WHERE id = ?', [id]);
+
+    if (id != results[0].id) {
+        return res.status(404).json({ message: 'Tarea no encontrada' });
+    } else {
+        return res.status(200).json({ message: 'Tarea eliminada correctamente' });
     }
 };
 
