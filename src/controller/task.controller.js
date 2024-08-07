@@ -1,8 +1,8 @@
 import { connectDB } from "../dataBase/dataBase.js";
 
-const ctrl = {};
+const tasksCtrl = {};
 
-ctrl.createTask = async (req, res) => {
+tasksCtrl.createTask = async (req, res) => {
     const { title, description } = req.body;
 
     if (!title || !description) {
@@ -14,13 +14,13 @@ ctrl.createTask = async (req, res) => {
     return res.status(201).json({ message: 'Tarea creada correctamente' });
 };
 
-ctrl.getTasks = async (req, res) => {
+tasksCtrl.getTasks = async (req, res) => {
     const conection = await connectDB();
     const [results] = await conection.query('SELECT * FROM tasks');
     res.status(200).json(results);
 };
 
-ctrl.getTaskById = async (req, res) => {
+tasksCtrl.getTaskById = async (req, res) => {
     const { id } = req.params;
     const conection = await connectDB();
     const [results] = await conection.query('SELECT * FROM tasks WHERE id = ?', [id]);
