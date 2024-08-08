@@ -83,13 +83,12 @@ tasksCtrl.deleteTaskById = async (req, res) => {
     try {
         const { id } = req.params;
         const conection = await connectDB();
-        const [results] = await conection.query('SELECT * FROM tasks WHERE id = ?', [id]);
+        const [deleteTask] = await conection.query('DELETE FROM tasks WHERE id = ?', [id]);
 
-        if (id != results[0].id) {
+        if (deleteTask.affectedRows === 0) {
             return res.status(404).json({ message: 'Tarea no encontrada' });
-        }
+        };
 
-        await conection.query('DELETE FROM tasks WHERE id = ?', [id]);
         return res.status(200).json({ message: 'Tarea eliminada correctamente' });
     } catch (error) {
         console.error(error)
