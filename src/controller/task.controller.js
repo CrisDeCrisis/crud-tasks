@@ -1,8 +1,6 @@
 import { connectDB } from "../dataBase/dataBase.js";
 
-const tasksCtrl = {};
-
-tasksCtrl.createTask = async (req, res) => {
+export const createTask = async (req, res) => {
     try {
         const { title, description, isComplete } = req.body;
 
@@ -23,7 +21,7 @@ tasksCtrl.createTask = async (req, res) => {
     }
 };
 
-tasksCtrl.getTasks = async (req, res) => {
+export const getTasks = async (req, res) => {
     try {
         const conection = await connectDB();
         const [results] = await conection.query('SELECT * FROM tasks');
@@ -34,7 +32,7 @@ tasksCtrl.getTasks = async (req, res) => {
     }
 };
 
-tasksCtrl.getTaskById = async (req, res) => {
+export const getTaskById = async (req, res) => {
     try {
         const { id } = req.params;
         const conection = await connectDB();
@@ -51,7 +49,7 @@ tasksCtrl.getTaskById = async (req, res) => {
     }
 };
 
-tasksCtrl.updateTaskById = async (req, res) => {
+export const updateTaskById = async (req, res) => {
     try {
         const { id } = req.params;
         const conection = await connectDB();
@@ -79,7 +77,7 @@ tasksCtrl.updateTaskById = async (req, res) => {
     }
 };
 
-tasksCtrl.deleteTaskById = async (req, res) => {
+export const deleteTaskById = async (req, res) => {
     try {
         const { id } = req.params;
         const conection = await connectDB();
@@ -89,11 +87,11 @@ tasksCtrl.deleteTaskById = async (req, res) => {
             return res.status(404).json({ message: 'Tarea no encontrada' });
         };
 
+
+        await conection.query('DELETE FROM tasks WHERE id = ?', [id]);
         return res.status(200).json({ message: 'Tarea eliminada correctamente' });
     } catch (error) {
         console.error(error)
         return res.status(500).json({ message: 'Error del servidor' })
     }
 };
-
-export default tasksCtrl;
