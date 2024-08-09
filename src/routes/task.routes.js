@@ -4,7 +4,7 @@ import {
     updateTaskByIdValidation,
     deleteTaskByIdValidation
 } from "../validation/tasks.validation.js";
-import { applyValidations } from "../validation/applyValidations.js"
+import { applyValidations } from "../middleware/apply.validations.tasks.js"
 import {
     createTask,
     getTasks,
