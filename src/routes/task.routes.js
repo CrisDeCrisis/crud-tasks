@@ -1,5 +1,11 @@
 import { Router } from "express";
 import {
+    createTaskValidation,
+    updateTaskByIdValidation,
+    deleteTaskByIdValidation
+} from "../validation/tasks.validation.js";
+import { applyValidations } from "../validation/applyValidations.js"
+import {
     createTask,
     getTasks,
     getTaskById,
@@ -9,10 +15,10 @@ import {
 
 const tasksRouter = Router();
 
-tasksRouter.post("/", createTask);
+tasksRouter.post("/", createTaskValidation, applyValidations, createTask);
 tasksRouter.get("/", getTasks);
 tasksRouter.get("/:id", getTaskById);
-tasksRouter.put("/:id", updateTaskById);
-tasksRouter.delete("/:id", deleteTaskById);
+tasksRouter.put("/:id", updateTaskByIdValidation, applyValidations, updateTaskById);
+tasksRouter.delete("/:id", deleteTaskByIdValidation, applyValidations, deleteTaskById);
 
 export { tasksRouter };

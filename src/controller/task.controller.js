@@ -3,15 +3,6 @@ import { connectDB } from "../dataBase/dataBase.js";
 export const createTask = async (req, res) => {
     try {
         const { title, description, isComplete } = req.body;
-
-        if (!title || !description) {
-            return res.status(400).json({ message: 'Los campos no deben estar vacios' });
-        } else if (title.lenght > 255) {
-            return res.status(400).json({ message: 'El titulo no debe ser mayor a 255 caracteres' });
-        } else if (typeof isComplete !== "boolean") {
-            return res.status(400).json({ message: 'El campo isComplete debe ser un booleano' });
-        }
-
         const conection = await connectDB();
         await conection.query('INSERT INTO tasks (title, description, isComplete) VALUES (?, ?, ?)', [title, description, isComplete]);
         return res.status(201).json({ message: 'Tarea creada correctamente' });
@@ -60,15 +51,6 @@ export const updateTaskById = async (req, res) => {
         }
 
         const { title, description, isComplete } = req.body;
-
-        if (!title || !description) {
-            return res.status(400).json({ message: 'Los campos no deben estar vacios' });
-        } else if (title.lenght > 255) {
-            return res.status(400).json({ message: 'El titulo no debe ser mayor a 255 caracteres' });
-        } else if (typeof isComplete !== "boolean") {
-            return res.status(400).json({ message: 'El campo isComplete debe ser un booleano' });
-        }
-
         await conection.query('UPDATE tasks SET title = ?, description = ?, isComplete = ? WHERE id = ?', [title, description, isComplete, id]);
         return res.status(200).json({ message: 'Tarea actualizada correctamente' });
     } catch (error) {
@@ -86,7 +68,6 @@ export const deleteTaskById = async (req, res) => {
         if (deleteTask.affectedRows === 0) {
             return res.status(404).json({ message: 'Tarea no encontrada' });
         };
-
 
         await conection.query('DELETE FROM tasks WHERE id = ?', [id]);
         return res.status(200).json({ message: 'Tarea eliminada correctamente' });
