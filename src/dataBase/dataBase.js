@@ -1,16 +1,13 @@
-import { createConnection } from 'mysql2/promise';
+import mongoose from "mongoose";
+
+const url = "mongodb://localhost:27017/tasks_db";
 
 export const connectDB = async () => {
     try {
-        const connection = await createConnection({
-            host: 'localhost',
-            user: 'root',
-            password: '',
-            database: 'tasks_db'
-        });
-        return connection;
+        await mongoose.connect(url);
+        console.log("Se conectó a la base de datos:", mongoose.connection.name);
+        return mongoose.connection;
     } catch (error) {
-        console.error('Error al conectar a la base de datos:', error.message);
-        res.status(500).json({ message: 'Error al conectar a la base de datos' });
+        console.error("Error al conectar a la base de datos", error);
     }
-}
+};

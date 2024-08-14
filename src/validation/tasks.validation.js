@@ -1,4 +1,4 @@
-import { body, param } from "express-validator";
+import { body } from "express-validator";
 
 // POST tasks
 export const createTaskValidation = [
@@ -18,8 +18,6 @@ export const createTaskValidation = [
 
 // PUT tasks
 export const updateTaskByIdValidation = [
-    param('id')
-        .isNumeric().withMessage('El id debe ser un numero'),
     body('title')
         .isString().withMessage('El titulo debe ser un string')
         .notEmpty().withMessage('El titulo no debe estar vacio')
@@ -32,10 +30,4 @@ export const updateTaskByIdValidation = [
     body('isComplete')
         .notEmpty().withMessage('El campo no debe estar vacio')
         .isBoolean().withMessage('El campo isComplete debe ser un booleano')
-];
-
-// DELETE tasks
-export const deleteTaskByIdValidation = [
-    param('id')
-        .isNumeric().withMessage('El id debe ser un numero')
 ];
