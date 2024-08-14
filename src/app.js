@@ -1,6 +1,7 @@
 import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
+import mongoose from 'mongoose';
 
 import { tasksRouter } from './routes/task.routes.js';
 import { connectDB } from './dataBase/dataBase.js';
@@ -12,10 +13,9 @@ app.use(express.json());
 app.use(morgan('dev'));
 app.use(cors());
 
-app.use("/api/tasks", tasksRouter);
-
-connectDB();
+app.use("/api", tasksRouter);
 
 app.listen(PORT, () => {
+    connectDB();
     console.log(`Servidor corriendo en el puerto ${PORT} 🚀`);
 });

@@ -1,23 +1,14 @@
 import { Router } from "express";
-import {
-    createTaskValidation,
-    updateTaskByIdValidation,
-} from "../validation/tasks.validation.js";
+import { createTaskValidation, updateTaskByIdValidation } from "../validation/tasks.validation.js";
 import { applyValidations } from "../middleware/apply.validations.tasks.js"
-import {
-    createTask,
-    getTasks,
-    getTaskById,
-    updateTaskById,
-    deleteTaskById
-} from "../controller/task.controller.js";
+import { tasksCtrl } from "../controller/task.controller.js";
 
 const tasksRouter = Router();
 
-tasksRouter.post("/", createTaskValidation, applyValidations, createTask);
-tasksRouter.get("/", getTasks);
-tasksRouter.get("/:id", getTaskById);
-tasksRouter.put("/:id", updateTaskByIdValidation, applyValidations, updateTaskById);
-tasksRouter.delete("/:id", applyValidations, deleteTaskById);
+tasksRouter.post("/tasks", createTaskValidation, applyValidations, tasksCtrl.createTask);
+tasksRouter.get("/tasks", tasksCtrl.getTasks);
+tasksRouter.get("/tasks/:id", tasksCtrl.getTaskById);
+tasksRouter.put("/tasks/:id", updateTaskByIdValidation, applyValidations, tasksCtrl.updateTaskById);
+tasksRouter.delete("/tasks/:id", tasksCtrl.deleteTaskById);
 
 export { tasksRouter };

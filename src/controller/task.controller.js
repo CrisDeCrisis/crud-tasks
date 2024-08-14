@@ -1,7 +1,8 @@
 import { taskModel } from "../model/tasks.model.js";
 
+const tasksCtrl = {};
 
-export const createTask = async (req, res) => {
+tasksCtrl.createTask = async (req, res) => {
     try {
         const newTask = new taskModel(req.body);
         const task = await newTask.save();
@@ -12,7 +13,7 @@ export const createTask = async (req, res) => {
     }
 };
 
-export const getTasks = async (req, res) => {
+tasksCtrl.getTasks = async (req, res) => {
     try {
         const tasks = await taskModel.find();
         res.status(200).json(tasks);
@@ -22,7 +23,7 @@ export const getTasks = async (req, res) => {
     }
 };
 
-export const getTaskById = async (req, res) => {
+tasksCtrl.getTaskById = async (req, res) => {
     try {
         const { id } = req.params;
         const task = await taskModel.findById(id);
@@ -34,7 +35,7 @@ export const getTaskById = async (req, res) => {
     }
 };
 
-export const updateTaskById = async (req, res) => {
+tasksCtrl.updateTaskById = async (req, res) => {
     try {
         const { id } = req.params;
         const task = await taskModel.findByIdAndUpdate(id, req.body, { new: true });
@@ -46,7 +47,7 @@ export const updateTaskById = async (req, res) => {
     }
 };
 
-export const deleteTaskById = async (req, res) => {
+tasksCtrl.deleteTaskById = async (req, res) => {
     try {
         const { id } = req.params;
         const task = await taskModel.findByIdAndDelete(id);
@@ -57,3 +58,5 @@ export const deleteTaskById = async (req, res) => {
         return res.status(500).json({ message: 'Error del servidor' })
     }
 };
+
+export { tasksCtrl };
