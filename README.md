@@ -8,6 +8,10 @@ En este proyecto realizamos una API para gestionar una aplicación de tareas.
 
 * Express
 
+* Express validator
+
+* Mongoose
+
 ## Instalación
 
 ### Requisitos previos
