@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { createTaskValidation, updateTaskByIdValidation } from "../validation/tasks.validation.js";
-import { applyValidations } from "../middleware/apply.validations.tasks.js"
-import { tasksCtrl } from "../controller/task.controller.js";
+import { createTaskValidation, updateTaskByIdValidation } from "../validations/tasks.validation.js";
+import { applyValidations } from "../middlewares/apply.validations.tasks.js"
+import { tasksCtrl } from "../controllers/task.controller.js";
 
 const tasksRouter = Router();
 

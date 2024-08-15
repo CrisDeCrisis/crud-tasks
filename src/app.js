@@ -1,7 +1,6 @@
 import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
-import mongoose from 'mongoose';
 
 import { tasksRouter } from './routes/task.routes.js';
 import { connectDB } from './dataBase/dataBase.js';
