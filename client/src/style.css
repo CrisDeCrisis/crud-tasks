@@ -17,20 +17,15 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
-body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+#app {
+    min-height: 100vh;
 }
 
-#taskContainer {
-    min-width: 600px;
-    min-height: 250px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-top: 20px;
-    border: 5px solid olive;
+.scroll-conditional {
+    max-height: calc(100vh - 34px);
+    overflow-y: auto;
+}
+
+.task-container {
+    min-height: 180px;
 }
