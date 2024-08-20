@@ -7,7 +7,10 @@ tasksCtrl.createTask = async (req, res) => {
     try {
         const newTask = await taskService.createTask(task);
         newTask.save();
-        return res.status(201).json({ message: 'Tarea creada correctamente' });
+        return res.status(201).json({
+            task: newTask,
+            message: 'Tarea creada correctamente'
+        });
     } catch (error) {
         console.error(error)
         return res.status(500).json({ message: 'Error del servidor' })
